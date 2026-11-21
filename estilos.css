@@ -1115,7 +1115,7 @@ h3 {
 
 /* BANNER FINAL */
 
-.cierre-invitacion {
+/* .cierre-invitacion {
     position: relative;
     width: 100%;
     height: 80vh;
@@ -1129,11 +1129,11 @@ h3 {
 
     object-fit: cover;
     object-position: center;
-}
+} */
 
 /* Degradado para mejorar la lectura */
 
-.cierre-invitacion::after {
+/* .cierre-invitacion::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -1176,10 +1176,10 @@ h3 {
     font-size: clamp(5rem, 10vw, 9rem);
     font-weight: 400;
     line-height: 1.1;
-}
+} */
 
 /* Mobile */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .cierre-invitacion {
         height: 75vh;
     }
@@ -1191,6 +1191,90 @@ h3 {
 
     .cierre-texto h2 {
         font-size: clamp(4.5rem, 15vw, 6rem);
+    }
+} */
+
+/* BANNER FINAL */
+
+.cierre-invitacion {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 60px 20px 50px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--color-bg);
+    text-align: center;
+    overflow: hidden;
+}
+
+.cierre-invitacion img {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+
+    object-fit: contain;
+    margin: 0 auto;
+
+    filter: drop-shadow(4px 8px 8px rgba(0, 0, 0, 0.15));
+}
+
+.cierre-texto {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+
+    text-align: center;
+    color: var(--color-primary);
+}
+
+.cierre-texto h5 {
+    margin: 0;
+
+    font-family: "Bentham", serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 4px;
+}
+
+.cierre-texto h2 {
+    margin: 0;
+
+    font-family: "Allura", cursive;
+    font-size: 7rem;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .cierre-invitacion {
+        padding: 40px 20px 30px;
+    }
+
+    .cierre-invitacion img {
+        width: 90%;
+    }
+
+    .cierre-texto {
+        margin-top: 15px;
+    }
+
+    .cierre-texto h5 {
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+    }
+
+    .cierre-texto h2 {
+        font-size: 5.5rem;
     }
 }
 
@@ -1253,6 +1337,7 @@ footer {
     padding: 5px;
 
     background-color: var(--color-bg);
+    border-top: solid var(--color-secondary) 1px;
     color: var(--color-primary);
 
     text-align: center;
