@@ -397,108 +397,6 @@ h3 {
     font-size: 1.3rem;
 }
 
-
-/* DECORACIÓN FLORAL */
-
-.flor-decorativa {
-    position: absolute;
-    display: block;
-    height: auto;
-    z-index: 0;
-
-    pointer-events: none;
-    user-select: none;
-}
-
-/* Flores superiores */
-
-.flor-superior {
-    top: 0;
-    left: 0;
-    width: 520px;
-}
-
-/* Flores intermedias */
-
-.flor-media {
-    top: 45%;
-    right: 0;
-    width: 820px;
-    transform: translateY(-50%);
-}
-
-/* Flores inferiores */
-
-.flor-inferior {
-    bottom: 0;
-    left: 0;
-    width: 520px;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .info-wrapper {
-        margin-top: -20px;
-        padding: 100px 25px 90px;
-        gap: 60px;
-    }
-
-    .bloque-info {
-        gap: 8px;
-    }
-
-    .bloque-info h3 {
-        font-size: 2.5rem;
-    }
-
-    .bloque-info h5 {
-        font-size: 1.3rem;
-    }
-
-    .bloque-info h6 {
-        font-size: 1.15rem;
-    }
-
-    .bloque-fecha {
-        padding: 40px 0 0;
-    }
-
-    .bloque-fecha h3 {
-        font-size: 2.3rem;
-    }
-
-    #countdown {
-        gap: 10px 18px;
-    }
-
-    #countdown h3 {
-        font-size: 2.2rem;
-    }
-
-    #countdown .time span {
-        font-size: 2rem;
-    }
-
-    #countdown .time small {
-        font-size: 1.2rem;
-    }
-
-    .flor-superior {
-        width: 60%;
-    }
-
-    .flor-media {
-        width: 100%;
-        top: 43%;
-        right: -55px;
-    }
-
-    .flor-inferior {
-        width: 50%;
-    }
-}
-
-
 /* BOTONES */
 
 .boton-invitacion {
@@ -1358,6 +1256,7 @@ footer p {
     font-size: 14px;
 }
 
+
 /* FONDO CONTINUO DE LA INVITACIÓN */
 
 #info,
@@ -1376,17 +1275,20 @@ footer {
         url("img/flor-inferior.png");
 
     background-position:
-        left top,
-        right center,
-        left bottom;
+        left -100px top,       /* Superior: más a la izquierda */
+        right -100px center,   /* Media: más a la derecha */
+        left -30px bottom;    /* Inferior: más a la izquierda */
 
     background-size:
-        450px auto,
-        350px auto,
-        400px auto;
+        600px auto,
+        850px auto,
+        500px auto;
 
     background-repeat: no-repeat;
 }
+
+
+/* MOBILE */
 
 @media (max-width: 768px) {
 
@@ -1396,13 +1298,13 @@ footer {
 
     #info {
         background-position:
-            left top,
-            right 46%,
-            left bottom;
+            left -40px top,       /* Superior */
+            right -60px top 26%, /* Media */
+            left -30px bottom;    /* Inferior */
 
         background-size:
             65% auto,
-            35% auto,
+            95% auto,
             55% auto;
     }
 }
