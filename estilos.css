@@ -24,6 +24,10 @@ body {
     font-family: "Bentham", serif;
     background-color: var(--color-bg);
     color: var(--color-text);
+    background-image: url("img/textura-papel.png");
+    background-size: 600px auto;
+    background-position: center top;
+    background-repeat: repeat;
 }
 
 .allura-regular {
@@ -1352,4 +1356,53 @@ footer a {
 footer p {
     margin-bottom: 0;
     font-size: 14px;
+}
+
+/* FONDO CONTINUO DE LA INVITACIÓN */
+
+#info,
+#galeria,
+.cierre-invitacion,
+footer {
+    background-color: transparent;
+}
+
+#info {
+    background-color: transparent;
+
+    background-image:
+        url("img/flor-superior.png"),
+        url("img/flor-media.png"),
+        url("img/flor-inferior.png");
+
+    background-position:
+        left top,
+        right center,
+        left bottom;
+
+    background-size:
+        450px auto,
+        350px auto,
+        400px auto;
+
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        background-size: 400px auto;
+    }
+
+    #info {
+        background-position:
+            left top,
+            right 46%,
+            left bottom;
+
+        background-size:
+            65% auto,
+            35% auto,
+            55% auto;
+    }
 }
