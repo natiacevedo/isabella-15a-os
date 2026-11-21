@@ -1299,7 +1299,7 @@ footer {
     #info {
         background-position:
             left -40px top,       /* Superior */
-            right -60px top 26%, /* Media */
+            right -40px top 26%, /* Media */
             left -30px bottom;    /* Inferior */
 
         background-size:
