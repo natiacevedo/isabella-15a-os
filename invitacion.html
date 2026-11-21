@@ -1,0 +1,612 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Isabella 15 años</title>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Isabella | Mis XV">
+    <meta property="og:description" content="Sábado 19 de diciembre · 21 hs · Cámara de Industrias del Uruguay">
+    <meta property="og:image" content="img/whatsapp.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:url" content="https://isabella-15años.netlify.app/">
+    <meta property="og:type" content="website">
+
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="https://use.typekit.net/cxe3yiv.css">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <main>
+
+        <!-- PORTADA -->
+
+        <div class="portada-wrapper">
+            <section class="portada-invitacion">
+
+                <img src="img/hero.jpeg" alt="Isabella">
+
+                <div class="portada-texto">
+                    <h5 class="portada-subtitulo">
+                        MIS <span class="quince">15</span> AÑOS
+                    </h5>
+
+                    <h1>Isabella</h1>
+                </div>
+
+            </section>
+        </div>
+
+
+        
+        <!-- INFORMACIÓN DE LA INVITACIÓN -->
+
+        <section id="info" class="info-wrapper">
+
+            <!-- DECORACIÓN FLORAL -->
+
+            <img src="img/flor-superior.png"
+                class="flor-decorativa flor-superior" alt="">
+
+            <img src="img/flor-media.png"
+                class="flor-decorativa flor-media" alt="">
+
+            <img src="img/flor-inferior.png"
+                class="flor-decorativa flor-inferior" alt="">
+
+
+            <!-- FECHA Y CUENTA REGRESIVA -->
+
+            <div class="bloque-info bloque-fecha">
+
+                <h3 class="mb-2">19/12/2026</h3>
+
+                <h6>
+                    Un momento que se vive una sola vez,<br>
+                    pero se recuerda toda la vida.
+                </h6>
+
+                <h6>¡Me encantaría compartirlo con vos!</h6>
+
+                <div id="countdown" class="mt-4">
+
+                    <h3>Quedan:</h3>
+
+                    <div class="time">
+                        <span id="days">00</span>
+                        <small>Días</small>
+                    </div>
+
+                    <div class="time">
+                        <span id="hours">00</span>
+                        <small>Horas</small>
+                    </div>
+
+                    <div class="time">
+                        <span id="minutes">00</span>
+                        <small>Min</small>
+                    </div>
+
+                    <div class="time">
+                        <span id="seconds">00</span>
+                        <small>Seg</small>
+                    </div>
+
+                </div>
+
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=15+a%C3%B1os+-+Isabella&amp;dates=20261219T210000/20261220T050000&amp;ctz=America%2FMontevideo&amp;location=C%C3%A1mara+de+Industrias+del+Uruguay,+Av.+Italia+6101,+Montevideo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="boton-invitacion">
+                    Agendar fecha
+                </a>
+
+            </div>
+
+
+            <!-- CELEBRACIÓN -->
+
+            <div class="bloque-info bloque-celebracion">
+
+                <img src="img/celebracion.png"
+                    alt="Celebración"
+                    width="100">
+
+                <h3 class="mb-2">Celebración</h3>
+
+                <h6>Sábado 19 de diciembre a las 21 hs</h6>
+
+                <h6>
+                    Cámara de Industrias del Uruguay<br>
+                    Av. Italia 6101
+                </h6>
+
+                <a href="https://www.google.com/maps/dir/?api=1&amp;destination=-34.8803291,-56.0778388"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="boton-invitacion">
+                    Cómo llegar
+                </a>
+
+            </div>
+
+
+            <!-- VESTIMENTA -->
+
+            <div class="bloque-info bloque-vestimenta">
+
+                <img src="img/vestimenta.png"
+                    alt="Vestimenta"
+                    width="100">
+
+                <h3 class="mb-2">Vestimenta</h3>
+
+                <h5>Formal</h5>
+
+                <h6>
+                    Se reserva el color blanco para la quinceañera<br>
+                    y los siguientes tonos para las amigas:
+                </h6>
+
+                <img src="img/tonos.png"
+                    alt="Rosa bebé, naranja bebé y amarillo bebé"
+                    width="160"
+                    class="mt-3">
+
+            </div>
+
+
+            <!-- REGALOS -->
+
+            <div class="bloque-info bloque-regalos">
+
+                <img src="img/regalos.png"
+                    alt="Regalos"
+                    width="100">
+
+                <h3 class="mb-2">Regalos</h3>
+
+                <h6>
+                    Si deseás hacerme un regalo,<br>
+                    podés hacerlo mediante transferencia bancaria.
+                </h6>
+
+                <button type="button"
+                        class="boton-invitacion"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalCuentas">
+                    Ver cuentas bancarias
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- GALERÍA -->
+
+        <section id="galeria">
+
+            <h3>Mis exteriores</h3>
+
+            <div class="galeria-personalizada">
+
+                <div class="galeria-foto galeria-vertical">
+                    <img src="img/FOTO2.jpeg" alt="Foto 1" loading="lazy">
+                </div>
+
+                <div class="galeria-foto">
+                    <img src="img/FOTO1.jpeg" alt="Foto 2" loading="lazy">
+                </div>
+
+                <div class="galeria-foto">
+                    <img src="img/FOTO4.jpeg" alt="Foto 3" loading="lazy">
+                </div>
+
+                <div class="galeria-foto">
+                    <img src="img/FOTO3.jpeg" alt="Foto 4" loading="lazy">
+                </div>
+
+                <div class="galeria-foto">
+                    <img src="img/FOTO5.jpeg" alt="Foto 5" loading="lazy">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONFIRMACIÓN DE ASISTENCIA -->
+
+        <section id="confirmacion" class="container">
+
+            <div class="formulario">
+
+                <div class="subtitulo mb-3">
+                    ISA · <span class="quince">19.12.2026</span>
+                </div>
+
+                <h2 class="mb-4">Confirmá tu asistencia</h2>
+<!-- 
+                <p class="intro">
+                    ¡Me encantaría compartir este día con vos!
+                </p> -->
+
+                <form id="formConfirmacion">
+
+                    <!-- NOMBRE -->
+
+                    <div class="campo">
+
+                        <label for="nombre">Nombre *</label>
+
+                        <input
+                            id="nombre"
+                            name="nombre"
+                            type="text"
+                            autocomplete="given-name"
+                            maxlength="80"
+                            required>
+
+                    </div>
+
+
+                    <!-- APELLIDO -->
+
+                    <div class="campo">
+
+                        <label for="apellido">Apellido *</label>
+
+                        <input
+                            id="apellido"
+                            name="apellido"
+                            type="text"
+                            autocomplete="family-name"
+                            maxlength="80"
+                            required>
+
+                    </div>
+
+
+                    <!-- CONFIRMACIÓN DE ASISTENCIA -->
+
+                    <fieldset>
+
+                        <legend>¿Confirmás tu asistencia? *</legend>
+
+                        <label class="opcion">
+
+                            <input
+                                type="radio"
+                                name="asiste"
+                                value="Sí"
+                                required>
+
+                            ¡Sí, ahí estaré!
+
+                        </label>
+
+                        <label class="opcion">
+
+                            <input
+                                type="radio"
+                                name="asiste"
+                                value="No">
+
+                            No podré asistir
+
+                        </label>
+
+                    </fieldset>
+
+
+                    <!-- CAMPOS SI CONFIRMA ASISTENCIA -->
+
+                    <div id="camposAsistencia" class="oculto">
+
+                        <!-- RESTRICCIÓN ALIMENTARIA -->
+
+                        <fieldset>
+
+                            <legend>
+                                ¿Tenés alguna restricción alimentaria?
+                            </legend>
+
+                            <label class="opcion">
+
+                                <input
+                                    type="radio"
+                                    name="restriccion"
+                                    value="No"
+                                    checked>
+
+                                No
+
+                            </label>
+
+                            <label class="opcion">
+
+                                <input
+                                    type="radio"
+                                    name="restriccion"
+                                    value="Sí">
+
+                                Sí
+
+                            </label>
+
+                        </fieldset>
+
+
+                        <!-- DETALLE DE RESTRICCIÓN -->
+
+                        <div class="campo oculto" id="cajaDetalle">
+
+                            <label for="detalle">¿Cuál? *</label>
+
+                            <textarea
+                                id="detalle"
+                                name="detalle"
+                                rows="2"
+                                maxlength="500"
+                                placeholder="Celíaco/a, vegetariano/a, alergias..."></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MENSAJE PARA ISABELLA -->
+
+                    <div class="campo">
+
+                        <label for="mensaje">
+                            ¿Querés dejar un mensaje?
+                        </label>
+
+                        <textarea
+                            id="mensaje"
+                            name="mensaje"
+                            rows="4"
+                            maxlength="1500"
+                            placeholder="¡Escribí acá!"></textarea>
+
+                    </div>
+
+
+                    <!-- BOTÓN DE ENVÍO -->
+
+                    <div class="botones text-center">
+
+                        <button
+                            id="enviar"
+                            type="submit"
+                            class="boton-invitacion enviar-confirmacion">
+
+                            Enviar confirmación
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- ESTADO DEL ENVÍO -->
+
+                    <div
+                        id="estado"
+                        class="estado"
+                        role="status"
+                        aria-live="polite">
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- BANNER FINAL -->
+
+        <div class="cierre-invitacion">
+
+            <img src="img/isa-bebe.png"
+                 alt="Isabella de pequeña"
+                 loading="lazy">
+
+            <div class="cierre-texto">
+
+                <h5>¡TE ESPERO!</h5>
+
+                <h2>Isa</h2>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- VENTANA EMERGENTE - CUENTAS BANCARIAS -->
+
+    <div class="modal fade"
+         id="modalCuentas"
+         tabindex="-1"
+         aria-labelledby="tituloModalCuentas"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content modal-regalos">
+
+                <!-- ENCABEZADO -->
+
+                <div class="modal-header border-0">
+
+                    <h5 class="modal-title" id="tituloModalCuentas">
+                        Cuentas bancarias
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Cerrar">
+                    </button>
+
+                </div>
+
+
+                <!-- CUERPO -->
+
+                <div class="modal-body text-center">
+
+                    <p class="mb-2">
+
+                        Cuenta UYU: ***
+
+                        <button type="button"
+                                class="btn-copiar"
+                                disabled>
+                            Copiar
+                        </button>
+
+                    </p>
+
+                    <p class="mb-4">
+
+                        Cuenta USD: ***
+
+                        <button type="button"
+                                class="btn-copiar"
+                                disabled>
+                            Copiar
+                        </button>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- VISOR DE IMÁGENES -->
+
+    <div class="visor-galeria"
+         id="visorGaleria"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Visor de fotografías"
+         aria-hidden="true">
+
+        <button class="visor-cerrar"
+                type="button"
+                aria-label="Cerrar galería">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M6 6 L18 18 M18 6 L6 18"/>
+            </svg>
+
+        </button>
+
+        <button class="visor-anterior"
+                type="button"
+                aria-label="Foto anterior">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M15 5 L8 12 L15 19"/>
+            </svg>
+
+        </button>
+
+        <img id="imagenAmpliada" alt="">
+
+        <button class="visor-siguiente"
+                type="button"
+                aria-label="Foto siguiente">
+
+            <svg viewBox="0 0 24 24">
+                <path d="M9 5 L16 12 L9 19"/>
+            </svg>
+
+        </button>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p class="text-center smaller p-3 mb-0">
+
+            © 2026 - Desarrollado por
+
+            <a href="https://wa.me/59892777550"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="color: inherit; text-decoration: underline;">
+
+                Natalia Acevedo
+
+            </a>
+
+        </p>
+
+    </footer>
+
+
+    <!-- REPRODUCTOR DE MÚSICA -->
+
+    <audio id="musica" loop preload="auto">
+
+        <source
+            src="musica/Coldplay - A Sky Full Of Stars (Official audio).mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+    <button id="boton-musica"
+            class="boton-musica"
+            type="button"
+            aria-label="Reproducir música">
+
+        <svg id="icono-musica"
+             viewBox="0 0 24 24"
+             width="22"
+             height="22"
+             fill="currentColor">
+
+            <path d="M8 5v14l11-7z"/>
+
+        </svg>
+
+    </button>
+
+
+    <!-- SCRIPTS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
