@@ -350,9 +350,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
 /* =========================================
    FORMULARIO DE CONFIRMACIÓN
-   SIN ACOMPAÑANTES
+   ISABELLA XV - 2026
 ========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -367,26 +368,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const nombre = document.getElementById("nombre");
     const apellido = document.getElementById("apellido");
     const detalle = document.getElementById("detalle");
-    const cancion = document.getElementById("cancion");
     const mensaje = document.getElementById("mensaje");
 
-    // Obtener valor de los botones de selección
+    let enviando = false;
+
+
+    /* OBTENER RESPUESTAS */
+
     const valor = (name) => {
         return formulario.querySelector(
             `[name="${name}"]:checked`
         )?.value || "";
     };
 
-    // Mostrar u ocultar campos
+
+    /* MOSTRAR U OCULTAR CAMPOS */
+
     function mostrar(id, condicion) {
+
         const elemento = document.getElementById(id);
 
         if (elemento) {
             elemento.classList.toggle("oculto", !condicion);
         }
+
     }
 
-    // Actualizar campos según las respuestas
+
+    /* ACTUALIZAR CAMPOS CONDICIONALES */
+
     function actualizar() {
 
         const asiste = valor("asiste") === "Sí";
@@ -394,103 +404,163 @@ document.addEventListener("DOMContentLoaded", () => {
         const tieneRestriccion =
             asiste && valor("restriccion") === "Sí";
 
-        // Mostrar campos solo si confirma asistencia
         mostrar("camposAsistencia", asiste);
 
-        // Mostrar detalle si tiene restricción
         mostrar("cajaDetalle", tieneRestriccion);
 
-        // Campo obligatorio únicamente cuando corresponde
-        if (detalle) {
-            detalle.required = tieneRestriccion;
-        }
+        detalle.required = tieneRestriccion;
+        detalle.disabled = !tieneRestriccion;
+
+        formulario.querySelectorAll(
+            '[name="restriccion"]'
+        ).forEach((radio) => {
+            radio.disabled = !asiste;
+        });
+
     }
 
     formulario.addEventListener("change", actualizar);
 
     actualizar();
 
-    // Envío del formulario
-    formulario.addEventListener("submit", (e) => {
+
+    /* ENVIAR CONFIRMACIÓN */
+
+    formulario.addEventListener("submit", async (e) => {
 
         e.preventDefault();
+
+        if (enviando) return;
 
         actualizar();
 
         if (!formulario.reportValidity()) return;
+
+
+        /* VALIDAR DATOS */
+
+        if (!nombre.value.trim() || !apellido.value.trim()) {
+
+            estado.className = "estado error";
+
+            estado.textContent =
+                "Por favor, completá tu nombre y apellido.";
+
+            return;
+
+        }
 
         const asiste = valor("asiste") === "Sí";
 
         const tieneRestriccion =
             asiste && valor("restriccion") === "Sí";
 
-        // Datos a enviar a Google Sheets
+        if (tieneRestriccion && !detalle.value.trim()) {
+
+            estado.className = "estado error";
+
+            estado.textContent =
+                "Por favor, indicá tu restricción alimentaria.";
+
+            detalle.focus();
+
+            return;
+
+        }
+
+
+        /* PREPARAR DATOS */
+
         const datos = {
 
             nombre: nombre.value.trim(),
+
             apellido: apellido.value.trim(),
 
             asiste: valor("asiste"),
 
             restriccion: asiste
                 ? valor("restriccion")
-                : "No",
+                : "",
 
             detalle: tieneRestriccion
                 ? detalle.value.trim()
-                : "",
-
-            cancion: asiste
-                ? cancion.value.trim()
                 : "",
 
             mensaje: mensaje.value.trim()
 
         };
 
+
+        /* ESTADO DE CARGA */
+
+        enviando = true;
+
         btn.disabled = true;
 
-        estado.className = "estado";
-        estado.textContent = "Enviando confirmación...";
+        btn.textContent = "Enviando...";
 
-        // Envío mediante Google Apps Script
-        if (
-            typeof google === "undefined" ||
-            !google.script?.run
-        ) {
+        estado.className = "estado";
+
+        estado.textContent =
+            "Registrando tu confirmación...";
+
+
+        try {
+
+            /* CONEXIÓN CON NETLIFY */
+
+            const respuesta = await fetch(
+                "/.netlify/functions/confirmacion",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(datos)
+                }
+            );
+
+            const resultado = await respuesta.json();
+
+            if (!respuesta.ok || resultado.ok !== true) {
+                throw new Error("No se pudo guardar la respuesta.");
+            }
+
+
+            /* CONFIRMACIÓN EXITOSA */
+
+            estado.className = "estado ok";
+
+            estado.textContent = asiste
+                ? "¡Gracias por confirmar! Nos vemos el 19 de diciembre. 💗"
+                : "¡Gracias por avisarme! 💗";
+
+            formulario.reset();
+
+            actualizar();
+
+
+        } catch (error) {
+
+            console.error(error);
+
             estado.className = "estado error";
+
             estado.textContent =
-                "No se pudo conectar con el sistema de confirmaciones.";
+                "No pudimos verificar tu confirmación. Intentá nuevamente.";
+
+        } finally {
+
+            enviando = false;
 
             btn.disabled = false;
-            return;
+
+            btn.textContent = "Enviar confirmación";
+
         }
-
-        google.script.run
-            .withSuccessHandler(() => {
-
-                estado.className = "estado exito";
-                estado.textContent =
-                    "¡Gracias! Tu respuesta quedó registrada correctamente.";
-
-                formulario.reset();
-                actualizar();
-
-                btn.disabled = false;
-
-            })
-            .withFailureHandler((error) => {
-
-                estado.className = "estado error";
-
-                estado.textContent =
-                    "No pudimos guardar la respuesta. Intentá nuevamente. " +
-                    (error?.message || "");
-
-                btn.disabled = false;
-
-            })
-            .guardarConfirmacion(datos);
 
     });
 
