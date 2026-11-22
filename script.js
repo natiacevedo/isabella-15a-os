@@ -565,3 +565,284 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+
+/* =========================================
+   INVITACIONES CON CUPOS: 2 A 6 PERSONAS
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const parametros = new URLSearchParams(window.location.search);
+    const valorCupos = parametros.get("cupos");
+
+    const cupos = /^[2-6]$/.test(valorCupos || "")
+        ? Number(valorCupos)
+        : 1;
+
+    const formularioIndividual = document.getElementById("formConfirmacion");
+    const seccionGrupal = document.getElementById("confirmacionGrupal");
+
+    // El enlace original mantiene el formulario individual.
+    if (cupos === 1) return;
+
+    const formularioGrupal = document.getElementById("formConfirmacionGrupal");
+    const cantidadCupos = document.getElementById("cantidadCupos");
+    const cantidadAsistentes = document.getElementById("cantidadAsistentes");
+    const listaInvitados = document.getElementById("listaInvitados");
+    const estadoGrupal = document.getElementById("estadoGrupal");
+
+    if (
+        !formularioIndividual ||
+        !seccionGrupal ||
+        !formularioGrupal ||
+        !cantidadCupos ||
+        !cantidadAsistentes ||
+        !listaInvitados
+    ) return;
+
+    // Mostrar únicamente el formulario grupal.
+    formularioIndividual.hidden = true;
+    seccionGrupal.hidden = false;
+
+    cantidadCupos.textContent = `${cupos} personas`;
+
+    // Crear las opciones según los cupos disponibles.
+    cantidadAsistentes.innerHTML =
+        '<option value="">Seleccioná una opción</option>';
+
+    for (let i = 0; i <= cupos; i++) {
+
+        const opcion = document.createElement("option");
+
+        opcion.value = String(i);
+        opcion.textContent = i === 0
+            ? "Ninguna persona"
+            : `${i} ${i === 1 ? "persona" : "personas"}`;
+
+        cantidadAsistentes.appendChild(opcion);
+    }
+
+    function crearInvitado(numero) {
+
+        const invitado = document.createElement("div");
+        invitado.className = "invitado";
+
+        invitado.innerHTML = `
+            <h4>Invitado ${numero}</h4>
+
+            <div class="campo">
+                <label for="nombreGrupo${numero}">Nombre *</label>
+                <input
+                    id="nombreGrupo${numero}"
+                    type="text"
+                    maxlength="80"
+                    required>
+            </div>
+
+            <div class="campo mt-3">
+                <label for="apellidoGrupo${numero}">Apellido *</label>
+                <input
+                    id="apellidoGrupo${numero}"
+                    type="text"
+                    maxlength="80"
+                    required>
+            </div>
+
+            <fieldset class="mt-3">
+                <legend>¿Tiene alguna restricción alimentaria?</legend>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="restriccionGrupo${numero}"
+                        value="No"
+                        checked>
+                    No
+                </label>
+
+                <label class="ms-3">
+                    <input
+                        type="radio"
+                        name="restriccionGrupo${numero}"
+                        value="Sí">
+                    Sí
+                </label>
+            </fieldset>
+
+            <div class="campo mt-3" hidden>
+                <label for="detalleGrupo${numero}">¿Cuál? *</label>
+                <textarea
+                    id="detalleGrupo${numero}"
+                    maxlength="500"
+                    placeholder="Celíaco/a, vegetariano/a, alergias..."></textarea>
+            </div>
+        `;
+
+        const radios = invitado.querySelectorAll(
+            `input[name="restriccionGrupo${numero}"]`
+        );
+
+        const cajaDetalle = invitado.querySelector("fieldset + .campo");
+        const detalle = invitado.querySelector(`#detalleGrupo${numero}`);
+
+        radios.forEach(radio => {
+
+            radio.addEventListener("change", () => {
+
+                const tieneRestriccion =
+                    invitado.querySelector(
+                        `input[name="restriccionGrupo${numero}"]:checked`
+                    )?.value === "Sí";
+
+                cajaDetalle.hidden = !tieneRestriccion;
+                detalle.required = tieneRestriccion;
+
+                if (!tieneRestriccion) detalle.value = "";
+            });
+
+        });
+
+        return invitado;
+    }
+
+    // Generar los campos de los asistentes.
+    cantidadAsistentes.addEventListener("change", () => {
+
+        listaInvitados.innerHTML = "";
+
+        const cantidad = Number(cantidadAsistentes.value);
+
+        if (!Number.isInteger(cantidad) || cantidad < 0 || cantidad > cupos) {
+            return;
+        }
+
+        for (let i = 1; i <= cantidad; i++) {
+            listaInvitados.appendChild(crearInvitado(i));
+        }
+
+    });
+
+    
+    /* =========================================
+    ENVIAR CONFIRMACIÓN GRUPAL
+    ========================================= */
+
+    let enviandoGrupo = false;
+
+    formularioGrupal.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        if (enviandoGrupo) return;
+
+        const cantidad = Number(cantidadAsistentes.value);
+
+        if (
+            cantidadAsistentes.value === "" ||
+            !Number.isInteger(cantidad) ||
+            cantidad < 0 ||
+            cantidad > cupos
+        ) {
+            estadoGrupal.textContent =
+                "Seleccioná una cantidad válida de asistentes.";
+            return;
+        }
+
+        if (!formularioGrupal.reportValidity()) return;
+
+        const invitados = [];
+
+        for (let i = 1; i <= cantidad; i++) {
+
+            const nombre = document
+                .getElementById(`nombreGrupo${i}`)
+                .value.trim();
+
+            const apellido = document
+                .getElementById(`apellidoGrupo${i}`)
+                .value.trim();
+
+            const restriccion = formularioGrupal.querySelector(
+                `input[name="restriccionGrupo${i}"]:checked`
+            )?.value || "No";
+
+            const detalle = restriccion === "Sí"
+                ? document.getElementById(`detalleGrupo${i}`).value.trim()
+                : "";
+
+            if (!nombre || !apellido || (restriccion === "Sí" && !detalle)) {
+                estadoGrupal.textContent =
+                    `Revisá los datos del invitado ${i}.`;
+                return;
+            }
+
+            invitados.push({
+                nombre,
+                apellido,
+                restriccion,
+                detalle
+            });
+        }
+
+        const datos = {
+            tipo: "grupal",
+            cupos,
+            invitados,
+            mensaje: document.getElementById("mensajeGrupal").value.trim()
+        };
+
+        const boton = document.getElementById("enviarGrupal");
+
+        enviandoGrupo = true;
+        boton.disabled = true;
+        boton.textContent = "Enviando...";
+
+        estadoGrupal.textContent = "Registrando confirmación...";
+
+        try {
+
+            const respuesta = await fetch(
+                "/.netlify/functions/confirmacion",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(datos)
+                }
+            );
+
+            const resultado = await respuesta.json();
+
+            if (!respuesta.ok || resultado.ok !== true) {
+                throw new Error("No se pudo guardar la confirmación.");
+            }
+
+            estadoGrupal.textContent = cantidad === 0
+                ? "¡Gracias por avisarme! 💗"
+                : `¡Gracias por confirmar a ${cantidad} ${
+                    cantidad === 1 ? "persona" : "personas"
+                }! Nos vemos el 19 de diciembre. 💗`;
+
+            formularioGrupal.reset();
+            listaInvitados.innerHTML = "";
+
+        } catch (error) {
+
+            console.error(error);
+
+            estadoGrupal.textContent =
+                "No se pudo registrar la confirmación. Intentá nuevamente.";
+
+        } finally {
+
+            enviandoGrupo = false;
+            boton.disabled = false;
+            boton.textContent = "Enviar confirmación";
+
+        }
+
+    });
+
+});

@@ -235,6 +235,81 @@
                     ¡Me encantaría compartir este día con vos!
                 </p> -->
 
+
+                <!-- FORMULARIO PARA INVITACIONES CON VARIOS CUPOS -->
+
+                <div id="confirmacionGrupal" hidden>
+
+                    <p class="intro-cupos">
+                        Esta invitación es válida para
+                        <strong id="cantidadCupos">2 personas</strong>.
+                    </p>
+
+                    <form id="formConfirmacionGrupal">
+
+                        <!-- CANTIDAD DE ASISTENTES -->
+
+                        <div class="campo">
+
+                            <label for="cantidadAsistentes">
+                                ¿Cuántas personas asistirán?
+                            </label>
+
+                            <select id="cantidadAsistentes" required>
+                                <!-- Las opciones se generan con JavaScript -->
+                            </select>
+
+                        </div>
+
+                        <!-- DATOS DE CADA INVITADO -->
+
+                        <div id="listaInvitados">
+                            <!-- Se generan automáticamente -->
+                        </div>
+
+                        <!-- MENSAJE -->
+
+                        <div class="campo">
+
+                            <label for="mensajeGrupal">
+                                ¿Querés dejar un mensaje?
+                            </label>
+
+                            <textarea
+                                id="mensajeGrupal"
+                                rows="4"
+                                maxlength="1500"
+                                placeholder="¡Escribí acá!"></textarea>
+
+                        </div>
+
+                        <!-- ENVÍO -->
+
+                        <div class="botones text-center">
+
+                            <button
+                                id="enviarGrupal"
+                                type="submit"
+                                class="boton-invitacion enviar-confirmacion">
+
+                                Enviar confirmación
+
+                            </button>
+
+                        </div>
+
+                        <div
+                            id="estadoGrupal"
+                            class="estado"
+                            role="status"
+                            aria-live="polite">
+                        </div>
+
+                    </form>
+
+                </div>
+
+
                 <form id="formConfirmacion">
 
                     <!-- NOMBRE -->
