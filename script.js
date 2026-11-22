@@ -723,6 +723,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
+
+    /* IDENTIFICAR A QUIEN RECHAZA LA INVITACIÓN GRUPAL */
+
+    const identificacionRechazo = document.getElementById("identificacionRechazo");
+    const nombreRechazo = document.getElementById("nombreRechazo");
+
+    function actualizarIdentificacionRechazo() {
+        const nadieAsiste = cantidadAsistentes.value === "0";
+
+        identificacionRechazo.hidden = !nadieAsiste;
+        nombreRechazo.required = nadieAsiste;
+
+        if (!nadieAsiste) {
+            nombreRechazo.value = "";
+        }
+    }
+
+    cantidadAsistentes.addEventListener(
+        "change",
+        actualizarIdentificacionRechazo
+    );
+
+    actualizarIdentificacionRechazo();
+
     
     /* =========================================
     ENVIAR CONFIRMACIÓN GRUPAL
@@ -785,10 +809,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        
         const datos = {
             tipo: "grupal",
             cupos,
             invitados,
+            nombreRechazo: cantidad === 0 ? nombreRechazo.value.trim() : "",
             mensaje: document.getElementById("mensajeGrupal").value.trim()
         };
 
