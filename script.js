@@ -723,14 +723,125 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    // Todavía no enviamos datos:
-    // primero conectaremos el registro grupal con Google Sheets.
-    formularioGrupal.addEventListener("submit", (e) => {
+    
+    /* =========================================
+    ENVIAR CONFIRMACIÓN GRUPAL
+    ========================================= */
+
+    let enviandoGrupo = false;
+
+    formularioGrupal.addEventListener("submit", async (e) => {
 
         e.preventDefault();
 
-        estadoGrupal.textContent =
-            "El formulario grupal está en preparación.";
+        if (enviandoGrupo) return;
+
+        const cantidad = Number(cantidadAsistentes.value);
+
+        if (
+            cantidadAsistentes.value === "" ||
+            !Number.isInteger(cantidad) ||
+            cantidad < 0 ||
+            cantidad > cupos
+        ) {
+            estadoGrupal.textContent =
+                "Seleccioná una cantidad válida de asistentes.";
+            return;
+        }
+
+        if (!formularioGrupal.reportValidity()) return;
+
+        const invitados = [];
+
+        for (let i = 1; i <= cantidad; i++) {
+
+            const nombre = document
+                .getElementById(`nombreGrupo${i}`)
+                .value.trim();
+
+            const apellido = document
+                .getElementById(`apellidoGrupo${i}`)
+                .value.trim();
+
+            const restriccion = formularioGrupal.querySelector(
+                `input[name="restriccionGrupo${i}"]:checked`
+            )?.value || "No";
+
+            const detalle = restriccion === "Sí"
+                ? document.getElementById(`detalleGrupo${i}`).value.trim()
+                : "";
+
+            if (!nombre || !apellido || (restriccion === "Sí" && !detalle)) {
+                estadoGrupal.textContent =
+                    `Revisá los datos del invitado ${i}.`;
+                return;
+            }
+
+            invitados.push({
+                nombre,
+                apellido,
+                restriccion,
+                detalle
+            });
+        }
+
+        const datos = {
+            tipo: "grupal",
+            cupos,
+            invitados,
+            mensaje: document.getElementById("mensajeGrupal").value.trim()
+        };
+
+        const boton = document.getElementById("enviarGrupal");
+
+        enviandoGrupo = true;
+        boton.disabled = true;
+        boton.textContent = "Enviando...";
+
+        estadoGrupal.textContent = "Registrando confirmación...";
+
+        try {
+
+            const respuesta = await fetch(
+                "/.netlify/functions/confirmacion",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(datos)
+                }
+            );
+
+            const resultado = await respuesta.json();
+
+            if (!respuesta.ok || resultado.ok !== true) {
+                throw new Error("No se pudo guardar la confirmación.");
+            }
+
+            estadoGrupal.textContent = cantidad === 0
+                ? "¡Gracias por avisarme! 💗"
+                : `¡Gracias por confirmar a ${cantidad} ${
+                    cantidad === 1 ? "persona" : "personas"
+                }! Nos vemos el 19 de diciembre. 💗`;
+
+            formularioGrupal.reset();
+            listaInvitados.innerHTML = "";
+
+        } catch (error) {
+
+            console.error(error);
+
+            estadoGrupal.textContent =
+                "No se pudo registrar la confirmación. Intentá nuevamente.";
+
+        } finally {
+
+            enviandoGrupo = false;
+            boton.disabled = false;
+            boton.textContent = "Enviar confirmación";
+
+        }
 
     });
 
